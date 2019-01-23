@@ -1,0 +1,59 @@
+{% extends "partials/template.twig" %}
+
+{% block content %}
+	<!-- Main content -->
+	<section class="content user-list">
+		<div class="row">
+			<div class="col-md-12">
+				{{  session.flashdata.message|raw }}
+				<!-- Default box -->
+				<div class="box box-danger">
+					<div class="box-header with-border text-right">
+						<a href="{{ base_url('user/create/') }}">
+							<button class="btn btn-danger btn-flat"><i class="fa fa-plus"></i> New User</button>
+						</a>
+					</div>
+					<div class="box-body">
+						<table id="example2" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>Username</th>
+									<th>Fullname</th>
+									<th>Birthdate</th>
+									<th>Gender</th>
+									<th>Mobile No.</th>
+									<th>Email</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{% for entity in entities %}
+									<tr>
+										<td>{{ entity.username }}</td>
+										<td>{{ entity.fullname }}</td>
+										<td>{{ entity.birthdate|date('M d, Y') }}</td>
+										<td>{{ entity.gender }}</td>
+										<td>{{ entity.mobile }}</td>
+										<td>{{ entity.email }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+	</section>
+	<!-- /.content -->
+{% endblock %}
+
+{% block script %}
+	{{ parent() }}
+	<script>
+		$(function () {
+			$('#example2').DataTable({});
+		});
+	</script>
+{% endblock %}
