@@ -42,6 +42,12 @@
 					<a href="{{ base_url('user/') }}"><i class="fa fa-user"></i><span>Users</span></a>
 				</li>
 			{% endif %}
+
+			{% if session.user_type in ['Administrator'] %}
+				<li class="{{ uri.uri_string == 'curriculum' ? 'active' : '' }}">
+					<a href="{{ base_url('curriculum/') }}"><i class="fa fa-file"></i><span>Curriculum</span></a>
+				</li>
+			{% endif %}
 		</ul>
 	</section>
 	<!-- /.sidebar -->
