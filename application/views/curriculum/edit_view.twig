@@ -1,0 +1,348 @@
+{% extends 'partials/template.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	<style type="text/css">
+		.code {
+			width: 100px;
+		}
+		.units {
+			width: 50px;
+		}
+		.course-code,
+		.course-title {
+			font-size: 30px;
+			font-weight: bold;
+			height: 50px;
+		}
+	</style>
+{% endblock %}
+
+{% block content %}
+{# Main content #}
+<section class="content">
+	<div class="row" id="app">
+		<div class="col-md-12">
+			{# Box element #}
+			<div class="box box-danger">
+				{# box-header #}
+				<div class="box-header with-border">
+					<h3 class="box-title">Create New Curriculum</h3>
+				</div>
+				{# End of box header #}
+
+				{# Form #}
+				<form role="form" v-on:submit.prevent="performSubmission">
+					{# box body #}
+					<div class="box-body">
+						{# Row #}
+						<div class="row">
+							<div class="col-md-2">
+								<input type="text" class="form-control course-code" name="course-code" v-model="course.code" placeholder="Course Code" autocomplete="off">
+							</div>
+							<div class="col-md-8">
+								<input type="text" class="form-control course-title" name="course-title" v-model="course.title" placeholder="Course Title" autocomplete="off">
+							</div>
+
+							<div class="col-md-12 text-center">
+								<h4>First Year</h4>
+							</div>
+
+							<div class="col-md-6">
+								<h5>First Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.firstYear.firstSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.firstYear.firstSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.firstYear.firstSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-6">
+								<h5>Second Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.firstYear.secondSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.firstYear.secondSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.firstYear.secondSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-12 text-center">
+								<h4>Second Year</h4>
+							</div>
+
+							<div class="col-md-6">
+								<h5>First Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.secondYear.firstSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.secondYear.firstSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.secondYear.firstSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-6">
+								<h5>Second Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.secondYear.secondSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.secondYear.secondSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.secondYear.secondSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-12 text-center">
+								<h4>Third Year</h4>
+							</div>
+
+							<div class="col-md-6">
+								<h5>First Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.thirdYear.firstSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.thirdYear.firstSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.thirdYear.firstSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-6">
+								<h5>Second Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.thirdYear.secondSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.thirdYear.secondSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.thirdYear.secondSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-12 text-center">
+								<h4>Fourth Year</h4>
+							</div>
+
+							<div class="col-md-6">
+								<h5>First Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.fourthYear.firstSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.fourthYear.firstSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.fourthYear.firstSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<div class="col-md-6">
+								<h5>Second Semester</h5>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Code</th>
+											<th>Title</th>
+											<th>Units</th>
+											<th><button type="button" class="btn btn-success btn-add" v-on:click="addRow(subjects.fourthYear.secondSem)"><i class="fa fa-plus"></i></button></th>
+										</tr>
+									</thead>
+
+									<tbody>
+										<tr v-for="(item, index) in subjects.fourthYear.secondSem">
+											<td><input type="text" class="form-control code" v-model="item.code"></td>
+											<td><input type="text" class="form-control title" v-model="item.title"></td>
+											<td><input type="text" class="form-control units" v-model="item.units"></td>
+											<td><button type="button" class="btn btn-danger btn-remove" v-on:click="removeRow(subjects.fourthYear.secondSem, index)"><i class="fa fa-times"></i></button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+						{# End row #}
+
+					</div>
+					{# end box body #}
+
+					<!-- box footer -->
+					<div class="box-footer">
+						<input type="submit" class="btn btn-flat btn-danger pull-right" name="Submit">
+					</div>
+					<!-- End of box footer -->
+				</form>
+				{# End of form #}
+			</div>
+			{# End of box #}
+		</div>
+	</div>
+</section>
+{# End main content #}
+{% endblock %}
+{% block script %}
+	{{ parent() }}
+	{# Vue #}
+	<script src="{{ base_url('resources/js/axios/axios.min.js') }}"></script>
+	<script src="{{ base_url('resources/js/vue/vue.min.js') }}"></script>
+	<script src="{{ base_url('resources/js/lodash/lodash.js') }}"></script>
+	<script src="{{ base_url('resources/js/vee-validate/vee-validate.min.js') }}"></script>
+
+	<script type="text/javascript">
+		Vue.use(VeeValidate);
+
+		const appUrl = "{{ base_url() }}";
+
+		const courseId = "{{ id }}";
+
+		const app = new Vue({
+			el: '#app',
+			delimiter: ['${', '}'],
+			data: {
+				course: {
+					code: '',
+					title: '',
+				},
+				subjects: {}
+			},
+			created() {
+				this.getCourse()
+				this.fetchSubjects()
+			},
+			methods: {
+				addRow: function(container) {
+					console.log(container)
+					// container.push({code: '', title: '', units: ''});
+				},
+				removeRow: function(container, index) {
+					container.splice(index, 1)
+				},
+				performSubmission: function() {
+					axios({
+						url: appUrl + 'curriculum/store',
+						method: 'post',
+						data: {
+							course:   this.course,
+							subjects: this.subjects
+						}
+					})
+					.then((response) => {
+						console.log(response.data)
+						alert('Curriculum has been edited')
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+				},
+				getCourse: function() {
+					axios({
+						url: appUrl + 'curriculum/ajaxReadCourse/' + courseId,
+						method: 'get',
+					})
+					.then((response) => {
+						this.course = response.data
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+				},
+				fetchSubjects: function() {
+					axios({
+						url: appUrl + 'curriculum/ajaxFetchSubjects/' + courseId,
+						method: 'get',
+					})
+					.then((response) => {
+						this.subjects = response.data
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+				}
+			}
+		});
+	</script>
+{% endblock %}
