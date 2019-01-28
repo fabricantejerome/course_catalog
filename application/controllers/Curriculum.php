@@ -31,6 +31,48 @@ Class Curriculum extends CI_Controller {
 		$this->twig->display('curriculum/form_view');
 	}
 
+	public function read()
+	{
+		$id = $this->uri->segment(3);
+
+		$course = $this->course_model->read($id);
+
+		$programs = $this->subject_model->fetchByCourseId($id);
+
+	}
+
+	public function ajaxFetchSubject()
+	{
+		$year_level = array(1 => 'firstYear', 2 => 'secondYear', 3 => 'thirdYear', 4 => 'fourthYear');
+		$sem_terms  = array(1 => 'firstSem', 2 => 'secondSem');
+		$container  = array();
+		$year_tracker = 0;
+		$sem_tracker = 0;
+
+		foreach ($programs as $key => $entity)
+		{
+			if ($entity['year'] != $year_tracker)
+			{
+				$year_tracker =  $entity['year'];
+			}
+
+			if ($entity['sem'] != $sem_tracker)
+			{
+				$sem_tracker =  $entity['sem'];
+			}
+
+			$container[$year_level[$year_tracker]][$sem_terms[$sem_tracker]][] = array(
+				'id'          => $entity['id'],
+				'code'        => $entity['code'],
+				'title'       => $entity['title'],
+				'units'       => $entity['units'],
+				'description' => $entity['description']
+			);
+		}
+
+		return $container;
+	}
+
 	public function store()
 	{
 		$data = json_decode(file_get_contents( "php://input"), true);
