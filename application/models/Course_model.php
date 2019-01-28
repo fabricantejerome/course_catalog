@@ -26,4 +26,11 @@ class Course_model extends CI_Model {
 		
 		return false;
 	}
+
+	public function read($id)
+	{
+		$query = $this->db->get_where('courses_tbl', array('id' => $id));
+
+		return $query->row_array();
+	}
 }
