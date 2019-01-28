@@ -1,0 +1,56 @@
+{% extends "partials/template.twig" %}
+
+{% block content %}
+	<!-- Main content -->
+	<section class="content subjects-list">
+		<div class="row">
+			<div class="col-md-6">
+				{{  session.flashdata.message|raw }}
+				<!-- Default box -->
+				<div class="box box-danger">
+					<div class="box-body">
+						<table id="example2" class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Code</th>
+									<th>Title</th>
+									<th>Units</th>
+									<th>Course</th>
+									<th></th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{% set i = 1 %}
+								{% for entity in entities %}
+									<tr>
+										<td>{{ i }}</td>
+										<td>{{ entity.code }}</td>
+										<td>{{ entity.title }}</td>
+										<td>{{ entity.units }}</td>
+										<td>{{ entity.course }}</td>
+										<td><a href="{{ base_url('subject/edit/' ~ entity.id) }}"><i class="fa fa-pencil"></i></a></td>
+									</tr>
+									{% set i = i + 1 %}
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					<!-- /.box-body -->
+				</div>
+				<!-- /.box -->
+			</div>
+		</div>
+	</section>
+	<!-- /.content -->
+{% endblock %}
+
+{% block script %}
+	{{ parent() }}
+	<script>
+		$(function () {
+			$('#example2').DataTable({});
+		});
+	</script>
+{% endblock %}
