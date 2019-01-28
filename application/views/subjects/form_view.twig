@@ -1,0 +1,59 @@
+{% extends 'partials/template.twig' %}
+
+{% block content %}
+{# Main content #}
+<section class="content">
+	{# Row #}
+	<div class="row">
+		{# Grid #}
+		<div class="col-md-5">
+			{# Box #}
+			<div class="box box-danger">
+				<!-- box-header -->
+				<div class="box-header with-border">
+					<h3 class="box-title">Add Subject Description</h3>
+				</div>
+				<!-- end of box header -->
+
+				<form role="form" action="{{ base_url('subject/store') }}" method="post">
+					{# box body #}
+					<div class="box-body">
+						<div class="form-group">
+							<label for="code">Code:</label>
+							<input type="text" name="code" id="code" class="form-control" value="{{ entity.code is defined ? entity.code : '' }}" readonly>
+
+							<input type="hidden" name="id" class="form-control" value="{{ entity.id is defined ? entity.id : 0 }}" readonly>
+						</div>
+
+						<div class="form-group">
+							<label for="title">Title:</label>
+							<input type="text" name="title" id="title" class="form-control" value="{{ entity.title is defined ? entity.title : '' }}" readonly>
+						</div>
+
+						<div class="form-group">
+							<label for="units">Units:</label>
+							<input type="text" name="units" id="units" class="form-control" value="{{ entity.units is defined ? entity.units : '' }}" readonly>
+						</div>
+
+						<div class="form-group">
+							<label for="description">Description:</label>
+							<textarea name="description" id="description" class="form-control" style="min-height: 150px" required>{{ entity.description is defined ? entity.description : '' }}</textarea>
+						</div>
+					</div>
+					{# end box body #}
+
+					<!-- box footer -->
+					<div class="box-footer">
+						<input type="submit" class="btn btn-flat btn-danger pull-right" name="Submit">
+					</div>
+					<!-- End of box footer -->
+				</form>
+			</div>
+			{# End box #}
+		</div>
+		{# End Grid #}
+	</div>
+	{# End Row #}
+</section>
+{# End section #}
+{% endblock %}
