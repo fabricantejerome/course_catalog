@@ -31,23 +31,28 @@ Class Curriculum extends CI_Controller {
 		$this->twig->display('curriculum/form_view');
 	}
 
-	public function read()
+	public function edit()
 	{
 		$id = $this->uri->segment(3);
 
-		$course = $this->course_model->read($id);
+		$data = array(
+			'id' => $id
+		);
 
-		$programs = $this->subject_model->fetchByCourseId($id);
-
+		$this->twig->display('curriculum/edit_view', $data);
 	}
 
-	public function ajaxFetchSubject()
+	public function ajaxFetchSubjects()
 	{
+		$id = $this->uri->segment(3);
+
 		$year_level = array(1 => 'firstYear', 2 => 'secondYear', 3 => 'thirdYear', 4 => 'fourthYear');
 		$sem_terms  = array(1 => 'firstSem', 2 => 'secondSem');
 		$container  = array();
 		$year_tracker = 0;
 		$sem_tracker = 0;
+
+		$programs = $this->subject_model->fetchByCourseId($id);
 
 		foreach ($programs as $key => $entity)
 		{
@@ -70,7 +75,16 @@ Class Curriculum extends CI_Controller {
 			);
 		}
 
-		return $container;
+		return $this->output->set_content_type('application/json')->set_output(json_encode($container));
+	}
+
+	public function ajaxReadCourse()
+	{
+		$id = $this->uri->segment(3);
+
+		$course = $this->course_model->read($id);
+
+		return $this->output->set_content_type('application/json')->set_output(json_encode($course));
 	}
 
 	public function store()
