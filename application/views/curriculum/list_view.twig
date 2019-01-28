@@ -18,7 +18,7 @@
 						<table id="example2" class="table table-bordered table-hover">
 							<thead>
 								<tr>
-									<th></th>
+									<th>#</th>
 									<th>Course Code</th>
 									<th>Course Title</th>
 									<th></th>
@@ -26,17 +26,19 @@
 							</thead>
 
 							<tbody>
+								{% set i = 1 %}
 								{% for entity in entities %}
 									<tr>
-										<td>{{ entity.id }}</td>
+										<td>{{ i }}</td>
 										<td>{{ entity.code }}</td>
 										<td>{{ entity.title }}</td>
 										<td>
-											<a href="#">
+											<a href="{{ base_url('curriculum/read/' ~ entity.id ) }}">
 												<button class="btn btn-default"><i class="fa fa-search"></i></button>
 											</a>
 										</td>
 									</tr>
+									{% set i = i + 1 %}
 								{% endfor %}
 							</tbody>
 						</table>
