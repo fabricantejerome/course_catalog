@@ -27,7 +27,7 @@
 			<div class="box box-danger">
 				{# box-header #}
 				<div class="box-header with-border">
-					<h3 class="box-title">Create New Curriculum</h3>
+					<h3 class="box-title">Edit/View Curriculum</h3>
 				</div>
 				{# End of box header #}
 
@@ -289,68 +289,20 @@
 				},
 				subjects: {
 					firstYear: {
-						firstSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						], 
-						secondSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						]
+						firstSem: [], 
+						secondSem: []
 					},
 					secondYear: {
-						firstSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						], 
-						secondSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						]
+						firstSem: [], 
+						secondSem: []
 					},
 					thirdYear: {
-						firstSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						], 
-						secondSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						]
+						firstSem: [], 
+						secondSem: []
 					},
 					fourthYear: {
-						firstSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						], 
-						secondSem: [
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''},
-							{code: '', title: '', units: ''}
-						]
+						firstSem: [], 
+						secondSem: []
 					},
 				},
 			},
@@ -384,8 +336,11 @@
 				},
 				getCourse: function() {
 					axios({
-						url: appUrl + 'curriculum/ajaxReadCourse/' + courseId,
-						method: 'get',
+						url: appUrl + 'curriculum/ajaxReadCourse/',
+						method: 'post',
+						data: {
+							id: courseId
+						}
 					})
 					.then((response) => {
 						console.log(response.data)
@@ -398,7 +353,10 @@
 				fetchSubjects: function() {
 					axios({
 						url: appUrl + 'curriculum/ajaxFetchSubjects/' + courseId,
-						method: 'get',
+						method: 'post',
+						data: {
+							id: courseId
+						}
 					})
 					.then((response) => {
 						console.log(response.data)
