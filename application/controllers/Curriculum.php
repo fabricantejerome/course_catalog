@@ -42,9 +42,14 @@ Class Curriculum extends CI_Controller {
 		$this->twig->display('curriculum/edit_view', $data);
 	}
 
+	public function dashboard()
+	{
+		$this->twig->display('curriculum/dashboard_view');
+	}
+
 	public function ajaxFetchSubjects()
 	{
-		$id = $this->uri->segment(3);
+		$data = json_decode(file_get_contents( "php://input"), true);
 
 		$year_level = array(1 => 'firstYear', 2 => 'secondYear', 3 => 'thirdYear', 4 => 'fourthYear');
 		$sem_terms  = array(1 => 'firstSem', 2 => 'secondSem');
@@ -52,7 +57,7 @@ Class Curriculum extends CI_Controller {
 		$year_tracker = 0;
 		$sem_tracker = 0;
 
-		$programs = $this->subject_model->fetchByCourseId($id);
+		$programs = $this->subject_model->fetchByCourseId($data['id']);
 
 		foreach ($programs as $key => $entity)
 		{
@@ -80,11 +85,18 @@ Class Curriculum extends CI_Controller {
 
 	public function ajaxReadCourse()
 	{
-		$id = $this->uri->segment(3);
+		$data = json_decode(file_get_contents( "php://input"), true);
 
-		$course = $this->course_model->read($id);
+		$course = $this->course_model->read($data['id']);
 
 		return $this->output->set_content_type('application/json')->set_output(json_encode($course));
+	}
+
+	public function ajaxFetchCourses()
+	{
+		$courses = $this->course_model->fetch();
+
+		return $this->output->set_content_type('application/json')->set_output(json_encode($courses));
 	}
 
 	public function store()
