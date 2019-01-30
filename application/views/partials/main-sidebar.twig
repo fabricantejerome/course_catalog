@@ -25,18 +25,13 @@
 		<!-- sidebar menu: : style can be found in sidebar.less -->
 		<ul class="sidebar-menu" data-widget="tree">
 			<li class="header">MAIN NAVIGATION</li>
-			<!-- <li class="treeview">
-				<a href="#">
-					<i class="fa fa-dashboard"></i> <span>Dashboard</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
-				</a>
-				<ul class="treeview-menu">
-					<li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-					<li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-				</ul>
-			</li> -->
+
+			{% if session.user_type in ['Administrator', 'Student'] %}
+				<li class="{{ uri.uri_string == 'curriculum/dashboard' ? 'active' : '' }}">
+					<a href="{{ base_url('curriculum/dashboard') }}"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
+				</li>
+			{% endif %}
+
 			{% if session.user_type in ['Administrator'] %}
 				<li class="{{ uri.uri_string == 'user' ? 'active' : '' }}">
 					<a href="{{ base_url('user/') }}"><i class="fa fa-user"></i><span>Users</span></a>
