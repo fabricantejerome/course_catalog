@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 30, 2019 at 11:47 PM
+-- Generation Time: Jan 31, 2019 at 04:40 PM
 -- Server version: 5.7.19
 -- PHP Version: 7.1.9
 
@@ -35,14 +35,15 @@ CREATE TABLE IF NOT EXISTS `courses_tbl` (
   `title` varchar(80) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `courses_tbl`
 --
 
 INSERT INTO `courses_tbl` (`id`, `code`, `title`, `created_at`) VALUES
-(1, 'BSCS', 'BACHELOR OF SCIENCE IN COMPUTER SCIENCE 2018', '2019-01-28 14:59:44');
+(1, 'BSCS', 'BACHELOR OF SCIENCE IN COMPUTER SCIENCE 2018', '2019-01-28 14:59:44'),
+(3, 'BSMATH', 'BACHELOR OF SCIENCE IN MATHEMATICS', '2019-01-31 16:29:28');
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `personal_info_tbl` (
 --
 
 INSERT INTO `personal_info_tbl` (`id`, `fullname`, `birthdate`, `gender`, `address`, `mobile`, `created_at`) VALUES
-(1, 'Jerome Fabricante', '1992-12-22', 'Male', 'Block 4 Lot 24 Buklod Bahayan Tartaria Silang Cavite', '09272612690', '2018-07-24 01:28:18'),
+(1, 'Jerome Fabricante', '2019-01-31', 'Male', 'Block 4 Lot 24 Buklod Bahayan Tartaria Silang Cavite', '(0927) 2612690', '2018-07-24 01:28:18'),
 (5, 'JUAN DELA CRUZ', '2018-07-25', 'Male', 'TARTARIA SILANG CAVITE', '(0932) 132-1321', '2018-07-28 15:29:58'),
 (6, 'TEST', '1990-07-11', 'Male', 'TEST', '(1321) 321-3211', '2018-07-28 15:31:46'),
 (7, 'TSET1', '2018-08-05', 'Male', 'TEST1', '(6546) 546-5465', '2018-08-05 08:48:28'),
@@ -115,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `subjects_tbl` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `subjects_tbl`
@@ -174,7 +175,58 @@ INSERT INTO `subjects_tbl` (`id`, `code`, `title`, `units`, `year`, `sem`, `cour
 (50, 'PRC15', 'Internship/OJT/Practicum(Outside 200hrs/In School 50hrs)', 3, 4, 2, 1, 'On the job training is cost effective for companies because it often requires fewer resources than having to recruit new employees. Staff members lacking proper training are likelier to leave the company either by their own choice, or through termination by the business for poor performance. Training employees while they are working, as opposed to sending them to an offsite location, increases the chance that learned information will be fully assimilated. Additionally, employees often find onsite training more enjoyable than having to go to a classroom away from the job.', '2019-01-28 14:59:45'),
 (51, 'PRC16', 'Information Assurance and Security', 3, 4, 2, 1, 'Information assurance and security is a rapidly growing field, but what’s it all about? How can you start working in information security? Do you have the right skills and education? If you’re looking to grow your career in a new direction and turn your love of computer science into a lucrative paycheck, you’ve come to the right place. Keep reading to learn more about this exciting field and whether it’s a good fit for you.', '2019-01-28 14:59:45'),
 (52, 'APC7', 'Foreign Language (Nihongo) CMO23 52010', 3, 4, 2, 1, 'Japanese, known to native speakers as Nihongo, is spoken by 127 million people, most of whom reside in Japan, though significant Japanese-speaking emigrant populations live in the US and Brazil and other countries. It is the 9th most commonly spoken language on the planet.', '2019-01-28 14:59:45'),
-(53, 'APC8', 'Seminar and Tours', 3, 4, 2, 1, 'The College Seminar Tour gives secondary school counselors the opportunity to learn more about colleges and universities around the state of Wisconsin. While you’re gaining valuable insight into the uniqueness of the schools in which your students show interest, you can also earn three graduate credits toward the renewal of your state license. The graduate credits, offered through Marian University of Fond du Lac, are approved by the Department of Public Instruction and endorsed by the Wisconsin Association for College Admission Counseling and the Wisconsin Association of Independent Colleges and Universities.', '2019-01-28 14:59:45');
+(53, 'APC8', 'Seminar and Tours', 3, 4, 2, 1, 'The College Seminar Tour gives secondary school counselors the opportunity to learn more about colleges and universities around the state of Wisconsin. While you’re gaining valuable insight into the uniqueness of the schools in which your students show interest, you can also earn three graduate credits toward the renewal of your state license. The graduate credits, offered through Marian University of Fond du Lac, are approved by the Department of Public Instruction and endorsed by the Wisconsin Association for College Admission Counseling and the Wisconsin Association of Independent Colleges and Universities.', '2019-01-28 14:59:45'),
+(82, 'ENCA 122', 'Communication Arts II ', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(81, 'MATH 125', 'Fundamentals of Computing I ', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(80, 'MATH 122', 'Analytic Geometry', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(79, 'MATH 120', 'Funda. Concepts of Mathematics', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(78, 'CWTS111', 'NSTP I ', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(77, 'PHED 111', 'Physical Education I', 2, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(76, 'RELB 111', 'The Gospel ', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(75, 'HIST 111 ', 'Philippine History', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(74, 'FILI 111', 'Kom. sa Akademikong Filipino', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(73, 'ENCA 111', 'Communication Arts I', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(72, 'MATH 121 ', 'Statistics', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(71, 'MATH 112 ', 'College Trigonometry', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(70, 'MATH 111', 'College Algebra', 3, 1, 1, 3, NULL, '2019-01-31 16:29:28'),
+(83, 'FILI 122', 'Pagbasa at Pagsulat tungo sa Pananaliksik', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(84, 'RELB 122', 'The Destiny of Man', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(85, 'PHED 122', 'Physical Education II', 2, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(86, 'CWTS 122', 'NSTP II', 3, 1, 2, 3, NULL, '2019-01-31 16:29:28'),
+(87, 'MATH 211', 'Plane and Solid Geometry', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(88, 'MATH 213', 'Calculus I', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(89, 'PHYS 211', 'General Physics I Lecture', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(90, 'PHYS 211L', 'General Physics I Lab.', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(91, 'PSYC 111', 'General Psychology', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(92, 'RELB 213', 'Daniel and Revelation', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(93, 'PHED 213', 'Physical Education III ', 2, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(94, 'VOED 111', 'Home Skills', 3, 2, 1, 3, NULL, '2019-01-31 16:29:28'),
+(95, 'MATH 220', 'Linear Algebra', 3, 2, 2, 3, NULL, '2019-01-31 16:29:28'),
+(96, 'MATH 224', 'Calculus II ', 3, 2, 2, 3, NULL, '2019-01-31 16:29:28'),
+(97, 'MATH', 'Applied Math Elective I', 3, 2, 2, 3, NULL, '2019-01-31 16:29:28'),
+(98, 'FILI 213', 'Masining na Pagpapahayag', 3, 2, 2, 3, NULL, '2019-01-31 16:29:28'),
+(99, 'RELB 224', 'Adventist Heritage', 3, 2, 2, 3, NULL, '2019-01-31 16:29:28'),
+(100, 'PHED 224', 'Physical Education IV', 2, 2, 2, 3, NULL, '2019-01-31 16:29:28'),
+(101, 'MATH 310', 'Probability', 3, 3, 1, 3, NULL, '2019-01-31 16:29:28'),
+(102, 'MATH 311', 'Differential Equations I', 3, 3, 1, 3, NULL, '2019-01-31 16:29:28'),
+(103, 'MATH 313', 'Calculus III', 3, 3, 1, 3, NULL, '2019-01-31 16:29:28'),
+(104, 'ENPL 211', 'Philippine Literature', 3, 3, 1, 3, NULL, '2019-01-31 16:29:28'),
+(105, 'SOSC 113', 'Pol. & Gov. w/ Phil. Constitution', 3, 3, 1, 3, NULL, '2019-01-31 16:29:28'),
+(106, 'VOED', 'Vocational Elective', 2, 3, 1, 3, NULL, '2019-01-31 16:29:28'),
+(107, 'MATH 320', 'Modern Geometry', 3, 3, 2, 3, NULL, '2019-01-31 16:29:28'),
+(108, 'MATH 321', 'Abstract Algebra I ', 3, 3, 2, 3, NULL, '2019-01-31 16:29:28'),
+(109, 'MATH', 'Applied Math Elective II', 3, 3, 2, 3, NULL, '2019-01-31 16:29:28'),
+(110, 'MATH', 'Applied Math Elective III', 3, 3, 2, 3, NULL, '2019-01-31 16:29:28'),
+(111, 'SOSC 124', 'Basic Economics w/ TAR', 3, 3, 2, 3, NULL, '2019-01-31 16:29:28'),
+(112, 'MATH 400', 'Thesis/Special Problem', 3, 4, 1, 3, NULL, '2019-01-31 16:29:28'),
+(113, 'MATH 415', 'Advanced Calculus I', 3, 4, 1, 3, NULL, '2019-01-31 16:29:28'),
+(114, 'BIOL 111', 'Biological Science', 3, 4, 1, 3, NULL, '2019-01-31 16:29:28'),
+(115, 'SOSC 212', 'Life and Works of Rizal', 3, 4, 1, 3, NULL, '2019-01-31 16:29:28'),
+(116, 'FAHU 221', 'Introduction to Humanities', 3, 4, 1, 3, NULL, '2019-01-31 16:29:28'),
+(117, 'MATH 426', 'Advanced Calculus II', 3, 4, 2, 3, NULL, '2019-01-31 16:29:28'),
+(118, 'MATH 421', 'Complex Analysis', 3, 4, 2, 3, NULL, '2019-01-31 16:29:28'),
+(119, 'PHIL 121', 'General Philosophy', 3, 4, 2, 3, NULL, '2019-01-31 16:29:28'),
+(120, 'SOSC 215', 'Society and Culture w/ Family Planning', 3, 4, 2, 3, NULL, '2019-01-31 16:29:28');
 
 -- --------------------------------------------------------
 
@@ -227,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `user_role_tbl` (
 --
 
 INSERT INTO `user_role_tbl` (`id`, `user_id`, `role_id`, `created_at`) VALUES
-(1, 1, 1, '2018-07-24 01:47:13'),
+(1, 1, 2, '2018-07-24 01:47:13'),
 (2, 2, 1, '2018-07-28 15:29:58'),
 (3, 3, 2, '2018-07-28 15:31:46'),
 (4, 4, 2, '2018-08-05 08:48:28'),
