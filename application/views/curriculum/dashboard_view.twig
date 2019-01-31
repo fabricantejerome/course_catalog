@@ -15,6 +15,12 @@
 			font-weight: bold;
 			height: 50px;
 		}
+		#text-description {
+			font-size: 15px;
+			line-height: 1.7;
+			padding-left: 30px;
+			padding-right: 30px;
+		}
 	</style>
 {% endblock %}
 
@@ -65,17 +71,25 @@
 						<div class="col-md-4">
 							<select name="subject" id="subject" ref="subject" class="select2 form-control">
 								<option selected disabled><-- Select Subject --></option>
-								<option v-for="(entity, index) of subjects[yearSelected][semSelected]" v-bind:value="entity.id">
+								<option v-for="(entity, index) of subjects[yearSelected][semSelected]" v-bind:value="index">
 									${ entity.title }
 								</option>
 							</select>
 						</div>
+					</div>
+					{# Row #}
 
-						<div class="col-md-12 text-center">
+					{# Row #}
+					<div class="row" v-if="_.isEmpty(subjectDetails)">
+						<div class="col-md-12 text-center" v-if="subjects.firstYear.firstSem.length > 0">
 							<h4>First Year</h4>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-12 text-center" v-else-if="subjects.firstYear.secondSem.length > 0">
+							<h4>First Year</h4>
+						</div>
+
+						<div class="col-md-6" v-if="subjects.firstYear.firstSem.length > 0">
 							<h5>First Semester</h5>
 							<table class="table">
 								<thead>
@@ -96,7 +110,7 @@
 							</table>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-6" v-if="subjects.firstYear.secondSem.length > 0">
 							<h5>Second Semester</h5>
 							<table class="table">
 								<thead>
@@ -117,11 +131,15 @@
 							</table>
 						</div>
 
-						<div class="col-md-12 text-center">
+						<div class="col-md-12 text-center" v-if="subjects.secondYear.firstSem.length > 0">
 							<h4>Second Year</h4>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-12 text-center" v-else-if="subjects.secondYear.secondSem.length > 0">
+							<h4>Second Year</h4>
+						</div>
+
+						<div class="col-md-6" v-if="subjects.secondYear.firstSem.length > 0">
 							<h5>First Semester</h5>
 							<table class="table">
 								<thead>
@@ -142,7 +160,7 @@
 							</table>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-6" v-if="subjects.secondYear.secondSem.length > 0">
 							<h5>Second Semester</h5>
 							<table class="table">
 								<thead>
@@ -163,11 +181,15 @@
 							</table>
 						</div>
 
-						<div class="col-md-12 text-center">
+						<div class="col-md-12 text-center" v-if="subjects.thirdYear.firstSem.length > 0">
 							<h4>Third Year</h4>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-12 text-center" v-else-if="subjects.thirdYear.secondSem.length > 0">
+							<h4>Third Year</h4>
+						</div>
+
+						<div class="col-md-6" v-if="subjects.thirdYear.firstSem.length > 0">
 							<h5>First Semester</h5>
 							<table class="table">
 								<thead>
@@ -188,7 +210,7 @@
 							</table>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-6" v-if="subjects.thirdYear.secondSem.length > 0">
 							<h5>Second Semester</h5>
 							<table class="table">
 								<thead>
@@ -209,11 +231,15 @@
 							</table>
 						</div>
 
-						<div class="col-md-12 text-center">
+						<div class="col-md-12 text-center" v-if="subjects.fourthYear.firstSem.length > 0">
 							<h4>Fourth Year</h4>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-12 text-center" v-else-if="subjects.fourthYear.secondSem.length > 0">
+							<h4>Fourth Year</h4>
+						</div>
+
+						<div class="col-md-6" v-if="subjects.fourthYear.firstSem.length > 0">
 							<h5>First Semester</h5>
 							<table class="table">
 								<thead>
@@ -234,7 +260,7 @@
 							</table>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-6" v-if="subjects.fourthYear.secondSem.length > 0">
 							<h5>Second Semester</h5>
 							<table class="table">
 								<thead>
@@ -257,6 +283,18 @@
 					</div>
 					{# End row #}
 
+					<div class="row" v-if="!_.isEmpty(subjectDetails)">
+						<div class="col-md-12 text-center">
+							<h3>${ subjectDetails.code } ${ subjectDetails.title }</h3>
+							<hr>
+							<p id="text-description">${ subjectDetails.description }</p>
+							<br>
+						</div>
+
+						<div class="col-md-12 text-right">
+							<button class="btn btn-danger" v-on:click="downloadFile">Download as PDF</button>
+						</div>
+					</div>
 				</div>
 				{# end box body #}
 			</div>
@@ -273,6 +311,7 @@
 	<script src="{{ base_url('resources/js/vue/vue.min.js') }}"></script>
 	<script src="{{ base_url('resources/js/lodash/lodash.js') }}"></script>
 	<script src="{{ base_url('resources/js/vee-validate/vee-validate.min.js') }}"></script>
+	<script src="{{ base_url('resources/js/jsPDF/dist/jspdf.debug.js') }}"></script>
 
 	<script type="text/javascript">
 		Vue.use(VeeValidate);
@@ -300,8 +339,11 @@
 					firstSem: 'First Semester',
 					secondSem: 'Second Semester',
 				},
+				courseSelected: '',
 				yearSelected: 'firstYear',
 				semSelected: 'firstSem',
+				subjectSelected: '',
+				subjectDetails: {},
 				subjects: {
 					firstYear: {
 						firstSem: [], 
@@ -327,18 +369,40 @@
 			},
 			mounted() {
 				const self = this
+
 				$(self.$refs.courseCode).on('change', function() {
 					let id = $(this).val()
 
+					self.couse = self.getCourse(id)
+					self.courseSelected = id
 					self.fetchSubjects(id)
+					self.subjectSelected = ''
+					
+					$(self.$refs.year).val('')
+					$(self.$refs.sem).val('')
+					self.subjectDetails = {}
 				})
 
 				$(self.$refs.year).on('change', function() {
 					self.yearSelected = $(this).val()
+					self.subjectSelected = ''
+					self.subjectDetails = {}
+					$(self.$refs.sem).val('')
+					$(self.$refs.subject).val('')
 				})
 
 				$(self.$refs.sem).on('change', function() {
 					self.semSelected = $(this).val()
+					self.subjectSelected = ''
+					self.subjectDetails = {}
+					$(self.$refs.subject).val('')
+				})
+
+				$(self.$refs.subject).on('change', function() {
+					self.subjectSelected = $(this).val()
+					
+					self.subjectDetails = self.subjects[self.yearSelected][self.semSelected][self.subjectSelected]
+					console.log(self.subjectDetails)
 				})
 			},
 			methods: {
@@ -409,6 +473,15 @@
 					.catch((error) => {
 						console.log(error)
 					})
+				},
+				downloadFile: function() {
+					let doc = new jsPDF();
+					let description = doc.splitTextToSize((this.subjectDetails.code + ': ' + this.subjectDetails.title + ' - ' + this.subjectDetails.description), 180);
+					doc.text(20, 30, this.course.title);
+					doc.text(20, 50, description);
+
+					// Save the PDF
+					doc.save(this.subjectDetails.code + '.pdf')
 				}
 			}
 		});
