@@ -25,14 +25,7 @@ class Login extends CI_Controller {
 		{
 			$this->session->set_userdata($user_data);
 
-			if ($this->session->userdata('user_type') == 'Administrator' )
-			{
-				redirect(base_url('user'));
-			}
-			else
-			{
-				redirect(base_url('transaction'));
-			}
+			redirect(base_url('curriculum/dashboard'));
 			
 		}
 
