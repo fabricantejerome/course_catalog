@@ -21,7 +21,10 @@ Class Curriculum extends CI_Controller {
 
 	public function index()
 	{
-		$data = array('entities' => $this->course_model->fetch());
+		$data = array(
+			'title'    => 'Curriculum',
+			'entities' => $this->course_model->fetch()
+		);
 
 		$this->twig->display('curriculum/list_view', $data);
 	}

@@ -22,6 +22,7 @@ Class Subject extends CI_Controller {
 	public function index()
 	{
 		$data = array(
+			'title'    => 'Subjects',
 			'entities' => $this->subject_model->fetch()
 		);
 
