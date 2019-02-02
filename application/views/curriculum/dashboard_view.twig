@@ -71,7 +71,7 @@
 						<div class="col-md-4">
 							<select name="subject" id="subject" ref="subject" class="select2 form-control">
 								<option selected disabled><-- Select Subject --></option>
-								<option v-for="(entity, index) of subjects[yearSelected][semSelected]" v-bind:value="index">
+								<option v-for="(entity, index) of subjects[yearSelected][semSelected]" v-bind:value="entity.id">
 									${ entity.title }
 								</option>
 							</select>
@@ -401,8 +401,7 @@
 				$(self.$refs.subject).on('change', function() {
 					self.subjectSelected = $(this).val()
 					
-					self.subjectDetails = self.subjects[self.yearSelected][self.semSelected][self.subjectSelected]
-					console.log(self.subjectDetails)
+					self.subjectDetails = self.binarySearch(self.subjects[self.yearSelected][self.semSelected], self.subjectSelected)
 				})
 			},
 			methods: {
@@ -411,23 +410,6 @@
 				},
 				removeRow: function(container, index) {
 					container.splice(index, 1)
-				},
-				performSubmission: function() {
-					axios({
-						url: appUrl + 'curriculum/store',
-						method: 'post',
-						data: {
-							course:   this.course,
-							subjects: this.subjects
-						}
-					})
-					.then((response) => {
-						console.log(response.data)
-						alert('Curriculum has been edited')
-					})
-					.catch((error) => {
-						console.log(error)
-					})
 				},
 				getCourse: function(courseId) {
 					axios({
@@ -482,6 +464,27 @@
 
 					// Save the PDF
 					doc.save(this.subjectDetails.code + '.pdf')
+				},
+				binarySearch: function (list, value) {
+					// initial values for start, middle and end
+					let start = 0
+					let stop = list.length - 1
+					let middle = Math.floor((start + stop) / 2)
+
+					// While the middle is not what we're looking for and the list does not have a single item
+					while (list[middle].id !== value && start < stop) {
+						if (value < list[middle].id) {
+							stop = middle - 1
+						} else {
+							start = middle + 1
+						}
+
+						// recalculate middle on every iteration
+						middle = Math.floor((start + stop) / 2)
+					}
+
+					// if the current middle item is what we're looking for return it's index, else return -1
+					return (list[middle].id !== value) ? -1 : list[middle]
 				}
 			}
 		});
