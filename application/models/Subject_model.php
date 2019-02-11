@@ -61,4 +61,16 @@ class Subject_model extends CI_Model {
 
 		return $query->result_array();
 	}
+
+	public function delete($course_id)
+	{
+		$query = $this->db->delete('subjects_tbl', array('course_id' => $course_id));
+	}
+
+	public function search($course_code)
+	{
+		$query = $this->db->select('*')->from('subjects_tbl')->like($course_code)->get();
+
+		return $query->row_array();
+	}
 }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 02, 2019 at 12:04 PM
--- Server version: 5.7.19
--- PHP Version: 7.1.9
+-- Generation Time: Feb 11, 2019 at 09:07 AM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `courses_tbl` (
   `title` varchar(80) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `courses_tbl`
@@ -44,6 +44,33 @@ CREATE TABLE IF NOT EXISTS `courses_tbl` (
 INSERT INTO `courses_tbl` (`id`, `code`, `title`, `created_at`) VALUES
 (1, 'BSCS', 'BACHELOR OF SCIENCE IN COMPUTER SCIENCE 2018', '2019-01-28 14:59:44'),
 (3, 'BSMATH', 'BACHELOR OF SCIENCE IN MATHEMATICS', '2019-01-31 16:29:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logs_tbl`
+--
+
+DROP TABLE IF EXISTS `logs_tbl`;
+CREATE TABLE IF NOT EXISTS `logs_tbl` (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(120) NOT NULL,
+  `user_type` varchar(60) DEFAULT NULL,
+  `date_created` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `logs_tbl`
+--
+
+INSERT INTO `logs_tbl` (`id`, `name`, `user_type`, `date_created`) VALUES
+(1, 'Jerome Fabricante', 'Student', '2019-02-03 09:38:40'),
+(2, 'ADMINISTRATOR', 'Administrator', '2019-02-03 09:39:15'),
+(3, 'Jerome Fabricante', 'Student', '2019-02-03 17:50:08'),
+(4, 'ADMINISTRATOR', 'Administrator', '2019-02-03 17:50:18'),
+(5, 'ADMINISTRATOR', 'Administrator', '2019-02-04 09:20:15'),
+(6, 'ADMINISTRATOR', 'Administrator', '2019-02-11 12:33:54');
 
 -- --------------------------------------------------------
 
@@ -116,7 +143,7 @@ CREATE TABLE IF NOT EXISTS `subjects_tbl` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=121 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `subjects_tbl`

@@ -6,6 +6,8 @@
  	<title>Login</title>
  	<!-- Tell the browser to be responsive to screen width -->
  	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+ 	<!-- icon -->
+	<link rel="icon" href="{{ base_url('resources/images/trimex_logo.jpg')}}">
  	<!-- Bootstrap 3.3.7 -->
  	<link rel="stylesheet" href="{{ base_url('resources/template/AdminLTE-2.4.3/bower_components/bootstrap/dist/css/bootstrap.css') }}">
  	<!-- Font Awesome -->
@@ -21,10 +23,23 @@
 
 	<!-- Google Font -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+	<style type="text/css">
+		.login-box, .register-box {
+			margin-top: 0;
+		}
+
+		.img-logo {
+			width: 50%
+		}
+	</style>
 </head>
 <body class="hold-transition login-page">
+	<div class="text-center">
+		<img class="img-logo" src="{{ base_url('resources/images/background.jpg') }}">
+	</div>
+	
 	<div class="login-box">
-
 		<div class="login-logo">
 			<a href="{{ base_url('login') }}">Manageable Program and Course Catalog</a>
 		</div>

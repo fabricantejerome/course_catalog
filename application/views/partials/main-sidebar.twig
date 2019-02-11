@@ -49,6 +49,12 @@
 					<a href="{{ base_url('subject/') }}"><i class="fa fa-list"></i><span>Subjects</span></a>
 				</li>
 			{% endif %}
+
+			{% if session.user_type in ['Administrator'] %}
+				<li class="{{ uri.uri_string == 'log' ? 'active' : '' }}">
+					<a href="{{ base_url('log/') }}"><i class="fa fa-list"></i><span>Logs</span></a>
+				</li>
+			{% endif %}
 		</ul>
 	</section>
 	<!-- /.sidebar -->

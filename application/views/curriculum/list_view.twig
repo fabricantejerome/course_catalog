@@ -4,7 +4,7 @@
 	{# Main Content #}
 	<section class="content curriculum-list">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-8">
 				{{ session.flashdata.message|raw }}
 				{# Default box #}
 				<!-- Default box -->
@@ -35,6 +35,10 @@
 										<td>
 											<a href="{{ base_url('curriculum/edit/' ~ entity.id ) }}">
 												<button class="btn btn-default"><i class="fa fa-search"></i></button>
+											</a>
+
+											<a href="{{ base_url('curriculum/delete/' ~ entity.id ) }}">
+												<button class="btn btn-default"><i class="fa fa-times"></i></button>
 											</a>
 										</td>
 									</tr>

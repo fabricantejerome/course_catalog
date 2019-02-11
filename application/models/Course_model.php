@@ -33,4 +33,9 @@ class Course_model extends CI_Model {
 
 		return $query->row_array();
 	}
+
+	public function delete($id)
+	{
+		$query = $this->db->delete('courses_tbl', array('id' => $id));
+	}
 }

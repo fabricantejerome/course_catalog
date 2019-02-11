@@ -168,4 +168,13 @@ Class Curriculum extends CI_Controller {
 
 		return $container;
 	}
+
+	public function ajaxSearchSubject()
+	{
+		$data = json_decode(file_get_contents( "php://input"), true);
+
+		$response = $this->subject_model->search($data);
+
+		return $this->output->set_content_type('application/json')->set_output(json_encode($response));
+	}
 }
