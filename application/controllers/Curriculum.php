@@ -45,6 +45,18 @@ Class Curriculum extends CI_Controller {
 		$this->twig->display('curriculum/edit_view', $data);
 	}
 
+	public function delete()
+	{
+		$id = $this->uri->segment(3);
+
+		$this->course_model->delete($id);
+		$this->subject_model->delete($id);
+
+		$this->session->set_flashdata('message', "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>The curriculum has been deleted!</div>");
+
+		return redirect(base_url('curriculum'));
+	}
+
 	public function dashboard()
 	{
 		$this->twig->display('curriculum/dashboard_view');
