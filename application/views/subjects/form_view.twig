@@ -15,7 +15,7 @@
 				</div>
 				<!-- end of box header -->
 
-				<form role="form" action="{{ base_url('subject/store') }}" method="post">
+				<form role="form" action="{{ base_url('subject/store') }}" method="post" enctype="multipart/form-data">
 					{# box body #}
 					<div class="box-body">
 						<div class="form-group">
@@ -27,12 +27,17 @@
 
 						<div class="form-group">
 							<label for="title">Title:</label>
-							<input type="text" name="title" id="title" class="form-control" value="{{ entity.title is defined ? entity.title : '' }}" readonly>
+							<input type="text" name="title" id="title" class="form-control" value="{{ entity.title is defined ? entity.title : '' }}" required>
 						</div>
 
 						<div class="form-group">
 							<label for="units">Units:</label>
 							<input type="text" name="units" id="units" class="form-control" value="{{ entity.units is defined ? entity.units : '' }}" readonly>
+						</div>
+
+						<div class="form-group">
+							<label for="attachment">Upload PDF:</label>
+							<input type="file" name="attachment" id="attachment" class="form-control" accept="application/pdf" value="{{ entity.attachment is defined ? entity.attachment : '' }}" required>
 						</div>
 
 						<div class="form-group">

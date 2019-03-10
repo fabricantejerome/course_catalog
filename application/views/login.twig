@@ -25,29 +25,35 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
 	<style type="text/css">
-		.login-box, .register-box {
+		/*.login-box, .register-box {
 			margin-top: 0;
-		}
+		}*/
 
-		.img-logo {
-			width: 50%
+		/*.img-logo {
+			width: 30%;
+		}*/
+
+		.login-page {
+			background-image: url('./resources/images/background-img.jpg');
+			background-size: cover;
+			background-repeat: none;
 		}
 	</style>
 </head>
 <body class="hold-transition login-page">
-	<div class="text-center">
-		<img class="img-logo" src="{{ base_url('resources/images/background.jpg') }}">
-	</div>
+	{# <div class="text-center">
+		<img class="img-logo" src="{{ base_url('resources/images/background.png') }}">
+	</div> #}
 	
 	<div class="login-box">
-		<div class="login-logo">
+		{# <div class="login-logo">
 			<a href="{{ base_url('login') }}">Manageable Program and Course Catalog</a>
-		</div>
+		</div> #}
 		<!-- /.login-logo -->
 		<div class="login-box-body">
 			{# {{ $this->session->flashdata('message') }} #}
 			{{ session.flashdata.message|raw }}
-			<p class="login-box-msg">Sign in to start your session</p>
+			<p class="login-box-msg">Manageable Program and Course Catalog</p>
 
 			<form action="{{ base_url('login/authenticate') }}" method="post">
 				<div class="form-group has-feedback">

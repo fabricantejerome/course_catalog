@@ -31,8 +31,8 @@ class Login extends CI_Controller {
 			$config = array(
 				'name'         => $user_data['fullname'],
 				'user_type'    => $user_data['user_type'],
+				'activity'     => 'Login successfully',
 				'date_created' => date('Y-m-d H:i:s')
-
 			);
 
 			$this->log_model->store($config);
@@ -53,6 +53,15 @@ class Login extends CI_Controller {
 
 	public function logout()
 	{
+		$config = array(
+			'name'         => $this->session->userdata('fullname'),
+			'user_type'    => $this->session->userdata('user_type'),
+			'activity'     => 'Logout successfully',
+			'date_created' => date('Y-m-d H:i:s')
+		);
+
+		$this->log_model->store($config);
+
 		$this->session->sess_destroy();
 
 		redirect(base_url('login'));

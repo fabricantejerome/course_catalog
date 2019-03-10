@@ -7,7 +7,7 @@ Class User extends CI_Controller {
 	{
 		parent::__construct();
 
-		$models = ['user_model', 'role_model'];
+		$models = ['user_model', 'role_model', 'log_model'];
 
 		$this->load->model($models);
 
@@ -68,6 +68,15 @@ Class User extends CI_Controller {
 		];
 
 		$this->user_model->storeUserRole($user_role);
+
+		$config = array(
+			'name'         => $this->session->userdata('fullname'),
+			'user_type'    => $this->session->userdata('user_type'),
+			'activity'     => 'Created new user!',
+			'date_created' => date('Y-m-d H:i:s')
+		);
+
+		$this->log_model->store($config);
 
 		$this->session->set_flashdata('message', "<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Account has been created!</div>");
 

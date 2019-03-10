@@ -336,6 +336,10 @@
 						</div>
 
 						<div class="col-md-6 text-right">
+							<a v-bind:href="subjectDetails.path" v-if="subjectDetails.attachment != null" target="_blank">
+								<button class="btn btn-info"><i class="fa fa-search"></i> View</button>
+							</a>
+							
 							<button class="btn btn-danger" v-on:click="downloadFile"><i class="fa fa-file-pdf-o"></i> Download as PDF</button>
 						</div>
 					</div>

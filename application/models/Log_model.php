@@ -10,7 +10,7 @@ class Log_model extends CI_Model {
 
 	public function fetch()
 	{
-		return $this->db->get('logs_tbl')->result_array();
+		return $this->db->order_by('date_created', 'DESC')->get('logs_tbl')->result_array();
 	}
 
 	public function store($param)
