@@ -73,4 +73,25 @@ class Subject_model extends CI_Model {
 
 		return $query->row_array();
 	}
+
+	public function fetchResult($param)
+	{
+		$query= $this->db->select('*')->from('subjects_tbl')->like($param)->group_by('title', 'ASC')->get();
+
+		return $query->result_array();
+	}
+
+	public function fetchByTitle()
+	{
+		$fields = array('st.id', 'st.code', 'st.title', 'st.units', 'st.description', 'st.attachment', 'st.path', 'ct.code AS course');
+
+		$query = $this->db->select($fields)
+				->from('subjects_tbl AS st')
+				->join('courses_tbl AS ct', 'st.course_id = ct.id', 'INNER')
+				->group_by('st.title')
+				->order_by('st.code')
+				->get();
+
+		return $query->result_array();
+	}
 }

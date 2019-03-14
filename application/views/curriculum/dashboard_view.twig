@@ -20,6 +20,7 @@
 			line-height: 1.7;
 			padding-left: 30px;
 			padding-right: 30px;
+			text-align: justify;
 		}
 
 		td {
@@ -413,10 +414,12 @@
 					},
 				},
 				subjectOptions: [],
-				searchString: ''
+				searchString: '',
+				subjectByTitle: []
 			},
 			created() {
 				this.fetchCourses()
+				this.fetchSubjectTitle()
 			},
 			mounted() {
 				const self = this
@@ -509,6 +512,19 @@
 						console.log(error)
 					})
 				},
+				fetchSubjectTitle: function() {
+					axios({
+						url: appUrl + 'subject/ajaxSubjectByTitle/',
+						method: 'get'
+					})
+					.then((response) => {
+						console.log(response.data)
+						this.subjectByTitle = response.data
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+				},
 				downloadFile: function() {
 					let doc = new jsPDF();
 					let description = doc.splitTextToSize((this.subjectDetails.code + ': ' + this.subjectDetails.title + ' - ' + this.subjectDetails.description), 230);
@@ -542,6 +558,27 @@
 					// if the current middle item is what we're looking for return it's index, else return -1
 					return (list[middle].id !== value) ? -1 : list[middle]
 				},
+				binarySearchCode: function (list, value) {
+					// initial values for start, middle and end
+					let start = 0
+					let stop = list.length - 1
+					let middle = Math.floor((start + stop) / 2)
+
+					// While the middle is not what we're looking for and the list does not have a single item
+					while (list[middle].code.toUpperCase() !== value && start < stop) {
+						if (value < list[middle].code.toUpperCase()) {
+							stop = middle - 1
+						} else {
+							start = middle + 1
+						}
+
+						// recalculate middle on every iteration
+						middle = Math.floor((start + stop) / 2)
+					}
+
+					// if the current middle item is what we're looking for return it's index, else return -1
+					return (list[middle].code.toUpperCase() !== value) ? -1 : list[middle]
+				},
 				showDetails: function(item) {
 					this.subjectDetails = item
 				},
@@ -553,28 +590,20 @@
 					const self = this
 					if (this.searchString.length > 0)
 					{
-						axios({
-							url: appUrl + 'curriculum/ajaxSearchSubject/',
-							method: 'post',
-							data: {
-								code: self.searchString.trim() 
-							}
-						})
-						.then((response) => {
-							console.log(response.data)
-							// this.subjects = response.data
-							if (response.data) {
-								self.subjectDetails = response.data
-							}
-							else{
-								self.subjectDetails = {}
-								alert('Subject not found!')
-							}
-							
-						})
-						.catch((error) => {
-							console.log(error)
-						})
+						let result = this.binarySearchCode(this.subjectByTitle, this.searchString.toUpperCase())
+
+						if (result == -1)
+						{
+							alert('Subject not found')
+						}
+						else
+						{
+							this.subjectDetails = result
+						}
+					}
+					else
+					{
+						alert('Search field is empty')
 					}
 				}
 			}

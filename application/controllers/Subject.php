@@ -81,6 +81,20 @@ Class Subject extends CI_Controller {
 		redirect(base_url('subject'));
 	}
 
+	public function search()
+	{
+		$config = array(
+			'title' => trim($this->input->get('search'))
+		);
+
+		$data = array(
+			'title'    => 'Search Result(s)',
+			'entities' => $this->subject_model->fetchResult($config)
+		);
+
+		$this->twig->display('subjects/search_view', $data);
+	}
+
 	protected function _handleUpload()
 	{
 		// Configuration
@@ -100,5 +114,10 @@ Class Subject extends CI_Controller {
 		}
 
 		return $this->upload->data();
+	}
+
+	public function ajaxSubjectByTitle()
+	{
+		return $this->output->set_content_type('application/json')->set_output(json_encode($this->subject_model->fetchByTitle()));
 	}
 }
